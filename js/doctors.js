@@ -20,7 +20,7 @@ function init(){
  $('#fb').onclick=()=>tog(true);$('#dx').onclick=$('#apply').onclick=sc.onclick=()=>tog(false);
  document.addEventListener('keydown',e=>{if(e.key=='Escape')tog(false)});
  $('#clr').onclick=()=>{S.cat='All';S.city='All';S.exp10=false;S.f={};document.querySelectorAll('#fcol input').forEach(i=>i.value='');render()};
-
+ if(MODE=='all'&&!user())DI.startTimer();
  render()}
 function render(){
  const sl=getSL(),B=MODE=='shortlist'?DATA.filter(d=>sl.includes(d.id)):DATA;

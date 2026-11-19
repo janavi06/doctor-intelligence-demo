@@ -1,5 +1,5 @@
 // DEMO ONLY: localStorage stands in for the Production DB and the OTP is simulated. Replace with real API calls (spec section 10).
-const CFG={popupDelay:20000,repeatDelay:20000,otpCooldown:30,otpAttempts:3,perPage:25};
+const CFG={popupDelay:20000,repeatDelay:60000,otpCooldown:30,otpAttempts:3,perPage:25};
 const $=s=>document.querySelector(s),L=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},W=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 const NA='Not available',esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const COLS=[['sno','S.No'],['name','Doctor Name'],['profile','Profile Page'],['designation','Designation'],['speciality','Speciality'],['education','Education Qualification'],['exp','Exp (In Yrs)'],['workingAt','Working at'],['city','City'],['branch','Branch'],['state','State'],['source','Source'],['lastVerified','Last Verified'],['regId','Reg. ID']];
