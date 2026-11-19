@@ -1,11 +1,14 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Article | Doctor Intelligence</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Health Article | Doctor Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head>
-<body>
-<main class="art" id="art"></main>
+<body><main class="art" id="art"></main>
 <script src="js/app.js"></script><script src="js/articles.js"></script>
 <script>
 const id=new URLSearchParams(location.search).get('id'),a=ARTICLES[id],m=$('#art');
-if(!a){m.innerHTML='<p class="empty">Article not found.</p><p style="text-align:center"><a class="btn" href="index.html">Back to home</a></p>'}
-else{document.title=a.title+' | Doctor Intelligence';
-m.innerHTML=`<a class="back" href="index.html">← Back to home</a><small class="eye">${esc(a.cat)} · ${esc(a.read)}</small><h1>${esc(a.title)}</h1><img src="${a.img}" alt="${esc(a.title)}">${a.body.map(([h,p])=>`<h2>${esc(h)}</h2><p>${esc(p)}</p>`).join('')}<p class="note">This article is for general information only and is not a substitute for professional medical advice.</p><a class="btn" href="doctors.html">Find a doctor ↗</a>`}
+if(!a){m.innerHTML='<div class="article-missing"><p class="empty">Article not found.</p><a class="btn" href="index.html">Back to home</a></div>'}
+else{
+ document.title=a.title+' | Doctor Intelligence';
+ const slug=t=>t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+ const sections=a.body.map(s=>`<section class="story-section" id="${slug(s.title)}"><h2>${esc(s.title)}</h2>${s.paragraphs.map(p=>`<p>${esc(p)}</p>`).join('')}</section>`).join('');
+ m.innerHTML=`<div class="article-wrap"><a class="back" href="index.html">← Back to insights</a><header class="article-head"><div class="article-kicker"><span>${esc(a.cat)}</span><span>${esc(a.read)}</span></div><h1>${esc(a.title)}</h1><p class="article-dek">${esc(a.dek)}</p><p class="article-byline">Doctor Intelligence <span>·</span> Health information desk</p></header><figure class="article-cover"><img src="${a.img}" alt="${esc(a.title)}"><figcaption>${esc(a.cat)} · An editorial guide from Doctor Intelligence</figcaption></figure><div class="article-layout"><article class="article-body">${sections}<section class="article-sources"><h2>Sources and further reading</h2><ul>${a.sources.map(([label,url])=>`<li><a href="${url}" target="_blank" rel="noopener">${esc(label)} ↗</a></li>`).join('')}</ul></section><p class="note">This article is for general information and education. It is not a diagnosis or a substitute for advice from a qualified healthcare professional. For personal guidance, consult a clinician.</p><a class="btn article-cta" href="doctors.html">Find a doctor <span>→</span></a></article><aside class="article-aside"><div class="takeaways"><h2>At a glance</h2><ul>${a.takeaways.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></div><nav class="article-toc" aria-label="In this article"><h2>In this article</h2><ol>${a.body.map(s=>`<li><a href="#${slug(s.title)}">${esc(s.title)}</a></li>`).join('')}</ol></nav></aside></div></div>`;
+}
 </script></body></html>
